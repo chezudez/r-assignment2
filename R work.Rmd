@@ -1,0 +1,127 @@
+---
+title: "new R assignment"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Q1 - Introduction 
+You own a supermarket mall and through membership cards , you have some basic data about your customers like Customer ID, age, gender, annual income and spending score.
+Spending Score is something you assign to the customer based on your defined parameters like customer behavior and purchasing data.
+You own the mall and want to understand the customers like who can be easily converge [Target Customers] so that the sense can be given to marketing team and plan the strategy accordingly.
+
+```{r cars, echo=TRUE}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=TRUE}
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=TRUE}
+plot(pressure)
+```
+
+## Q2 
+str(Mall)
+
+## Q3 
+names(Mall)
+
+## Q4
+head(Mall, n=15)
+
+##Q5
+sum_of_square <- function(x,y) {x^2 + y^2}
+
+sum_of_square(3,4)
+
+## convert columns from chr to num before applying function
+ Mall$V1 <- as.numeric(Mall$V1)
+
+## Check if first column was converted correctly
+str(Mall$V1)
+## covert other columns to num
+
+Mall$V4 <- as.numeric(Mall$V3)
+Mall$V5 <- as.numeric(Mall$V5)
+
+
+## Check if second column was converted correctly
+str(Mall$V3)
+
+## Q6
+as.data.frame(Mall %>% select(1:3))
+
+# Q7
+
+# Q8
+Mall %>% drop_na()
+
+# Q9
+Mall %>% distinct()
+
+##Q10
+Mall %>% arrange(desc(V4))
+
+Mall %>% arrange(desc(V3))
+
+#Q11
+names(Mall)[names(Mall) == "V3"] <- "age" 
+names(Mall)[names(Mall) == "V4"] <- "income" 
+head(Mall, n=15)
+
+#Q12
+## Convert chr to num
+Mall$age <- as.numeric(Mall$age)
+Mall$income <- as.numeric(Mall$income)
+str(Mall$income)
+## add new column
+Mall %>% mutate(Newcol = income/age)
+
+#Q13
+set.seed(5) 
+TrainingSet <- sort(sample.int(100, 50))
+TrainingSet
+
+#Q14
+Mall %>% group_by(V2) %>% summarise(mean(income))
+
+#Q15
+#change the value of the first row in colum'age' to 0 because it is showing up as na
+Mall$age[0]
+head(Mall, n=3)
+
+Mall$age[1] =0
+# check to see that value is changed
+Mall$age[1]
+Mall$age[2]
+# perform mean operation
+mean(Mall$age)
+
+#Q16
+ggplot(Mall, aes(Mall$V5, y=Mall$income)) +
+  geom_point(size=2, shape=23)
+  
+# Q17
+ggplot(data=Mall, aes(x=Mall$V2, y=Mall$age)) +
+  geom_bar(stat="identity")
+
+# Q18
+fit <- lm(Mall$age ~ Mall$V5)
+fit
+
+
